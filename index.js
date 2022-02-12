@@ -25,4 +25,28 @@ app.get("/products/:productId", async (req, res) => {
 	}
 });
 
+// Get Product Reviews
+app.get("/products/:productId/reviews", async (req, res) => {
+	const { productId } = req.params;
+
+	try {
+		const response = await request(`${BASE_URL}&url=https://www.amazon.com/product-reviews/${productId}`);
+		res.json(JSON.parse(response));
+	} catch (error) {
+		res.json(error);
+	}
+});
+
+// Get List of Products
+app.get("/search/:keyword", async (req, res) => {
+	const { keyword } = req.params;
+
+	try {
+		const response = await request(`${BASE_URL}&url=https://www.amazon.com/s?k=${keyword}`);
+		res.json(JSON.parse(response));
+	} catch (error) {
+		res.json(error);
+	}
+});
+
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));

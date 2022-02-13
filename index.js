@@ -33,7 +33,7 @@ app.get("/products/:productId/reviews", async (req, res) => {
 		const response = await request(`${BASE_URL}&url=https://www.amazon.com/product-reviews/${productId}`);
 		res.json(JSON.parse(response));
 	} catch (error) {
-		res.json(error);
+		res.json(error); 
 	}
 });
 

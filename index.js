@@ -33,17 +33,21 @@ app.get("/products/:productId/reviews", async (req, res) => {
 		const response = await request(`${BASE_URL}&url=https://www.amazon.com/product-reviews/${productId}`);
 		res.json(JSON.parse(response));
 	} catch (error) {
-		res.json(error); 
+		res.json(error);
 	}
 });
 
 // Get List of Products
 app.get("/search/:keyword", async (req, res) => {
 	const { keyword } = req.params;
+	const pages = new Array();
 
 	try {
 		const response = await request(`${BASE_URL}&url=https://www.amazon.com/s?k=${keyword}`);
-		res.json(JSON.parse(response));
+		resp = JSON.parse(response);
+		pages.push(resp.pagination);
+		console.log(pages);
+		res.json(resp.results);
 	} catch (error) {
 		res.json(error);
 	}
